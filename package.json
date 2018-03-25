@@ -7,7 +7,9 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -31,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/gaearon/react-transform-boilerplate/issues"
   },
-  "homepage": "https://github.com/gaearon/react-transform-boilerplate",
+  "homepage": "https://howech.github.com/blasteroids",
   "devDependencies": {
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.9",
@@ -41,6 +43,7 @@
     "eslint": "^1.3.1",
     "eslint-plugin-react": "^2.3.0",
     "express": "^4.13.3",
+    "gh-pages": "^1.1.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",
     "redbox-react": "1.0.1",
