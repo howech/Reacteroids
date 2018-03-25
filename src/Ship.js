@@ -10,13 +10,18 @@ export default class Ship {
       y: 0
     }
     this.rotation = 0;
-    this.rotationSpeed = 6;
-    this.speed = 0.15;
     this.inertia = 0.99;
     this.radius = 20;
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
+    this.upgrades = args.upgrades;
+    this.getRotationSpeed = args.getRotationSpeed;
+    this.getSpeed = args.getSpeed
+    this.getBulletCount = args.getBulletCount
+    this.getBulletDelay = args.getBulletDelay
+    this.getBulletTime = args.getBulletTime
+    this.canFire = args.canFire
   }
 
   destroy(){
@@ -40,19 +45,27 @@ export default class Ship {
       this.create(particle, 'particles');
     }
   }
+  
+  upgrade(upgrades) {
+    this.upgrades = upgrades
+  }
 
   rotate(dir){
+    const rotationSpeed = this.getRotationSpeed()
+
     if (dir == 'LEFT') {
-      this.rotation -= this.rotationSpeed;
+      this.rotation -= rotationSpeed;
     }
     if (dir == 'RIGHT') {
-      this.rotation += this.rotationSpeed;
+      this.rotation += rotationSpeed;
     }
   }
 
   accelerate(val){
-    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * this.speed;
-    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * this.speed;
+    const speed = this.getSpeed()
+    
+    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * speed;
+    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * speed;
 
     // Thruster particles
     let posDelta = rotatePoint({x:0, y:-10}, {x:0,y:0}, (this.rotation-180) * Math.PI / 180);
@@ -82,12 +95,13 @@ export default class Ship {
     if(state.keys.right){
       this.rotate('RIGHT');
     }
-    if(state.keys.space && Date.now() - this.lastShot > 300){
-      const bullet = new Bullet({ship: this});
+    
+    if(state.keys.space && Date.now() - this.lastShot > this.getBulletDelay() && this.canFire()){
+      const bullet = new Bullet({ship: this, speed: 20, lifetime: this.getBulletTime() });
       this.create(bullet, 'bullets');
       this.lastShot = Date.now();
     }
-
+    
     // Move
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -126,5 +140,6 @@ export default class Ship {
     context.fill();
     context.stroke();
     context.restore();
+    
   }
 }

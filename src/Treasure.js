@@ -1,9 +1,7 @@
 import Particle from './Particle';
-import Treasure from './Treasure';
-
 import { asteroidVertices, randomNumBetween } from './helpers';
 
-export default class Asteroid {
+export default class Treasure {
   constructor(args) {
     this.position = args.position
     this.velocity = {
@@ -13,16 +11,20 @@ export default class Asteroid {
     this.rotation = 0;
     this.rotationSpeed = randomNumBetween(-1, 1)
     this.radius = args.size;
-    this.score = (80/this.radius)*5;
+    this.treasure = Math.floor(randomNumBetween(1,5.99))
     this.create = args.create;
-    this.addScore = args.addScore;
     this.addTreasure = args.addTreasure;
-    this.vertices = asteroidVertices(8, args.size)
+    this.vertices = asteroidVertices(8, args.size);
+    this.timer = 100;
   }
-
+  
+  color(){
+    return ['#F86','#F8B','#D8C','#B8D','#98E','#88F', '#8EF'][this.treasure]
+  }
+  
+  
   destroy(){
     this.delete = true;
-    this.addScore(this.score);
 
     // Explode
     for (let i = 0; i < this.radius; i++) {
@@ -36,41 +38,16 @@ export default class Asteroid {
         velocity: {
           x: randomNumBetween(-1.5, 1.5),
           y: randomNumBetween(-1.5, 1.5)
-        }
+        },
+        color: this.color()
       });
       this.create(particle, 'particles');
     }
+  }
 
-    // Break into smaller asteroids
-    if(this.radius > 10){
-      for (let i = 0; i < 2; i++) {
-        let asteroid = new Asteroid({
-
-          size: this.radius/2,
-          position: {
-            x: randomNumBetween(-10, 20)+this.position.x,
-            y: randomNumBetween(-10, 20)+this.position.y
-          },
-          create: this.create,
-          addScore: this.addScore,
-          addTreasure: this.addTreasure,
-        });
-        this.create(asteroid, 'asteroids');
-      }
-    } else {
-      for (let i=0; i<randomNumBetween(1,3); i++) {
-        let treasure = new Treasure({
-          size: 5,
-          position: {
-            x: randomNumBetween(-10, 20)+this.position.x,
-            y: randomNumBetween(-10, 20)+this.position.y
-          },
-          addTreasure: this.addTreasure,
-          create: this.create,
-        });
-        this.create(treasure, 'treasures');
-      }
-    }
+  pickup(){
+    this.delete = true;
+    this.addTreasure(this.treasure)
   }
 
   render(state){
@@ -78,6 +55,15 @@ export default class Asteroid {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
+    this.timer -= 1;
+    if( this.timer == 0) {
+      this.treasure -= 1;
+      if(this.treasure > 0) {
+        this.timer = 100
+      } else {
+        this.destroy();
+      }
+    }
     // Rotation
     this.rotation += this.rotationSpeed;
     if (this.rotation >= 360) {
@@ -98,7 +84,7 @@ export default class Asteroid {
     context.save();
     context.translate(this.position.x, this.position.y);
     context.rotate(this.rotation * Math.PI / 180);
-    context.strokeStyle = '#FFF';
+    context.strokeStyle = this.color();
     context.lineWidth = 2;
     context.beginPath();
     context.moveTo(0, -this.radius);

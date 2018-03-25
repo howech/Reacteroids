@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Reacteroids } from './Reacteroids';
+import { Blasteroids } from './Blasteroids';
 import style from './style.css';
 
-render(<Reacteroids />, document.getElementById('root'));
+render(<Blasteroids/>, document.getElementById('root'));
