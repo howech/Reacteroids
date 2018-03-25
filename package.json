@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-transform-boilerplate.git"
+    "url": "https://github.com/howech/blasteroids.git"
   },
   "keywords": [
     "react",
@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/gaearon/react-transform-boilerplate/issues"
   },
-  "homepage": "https://howech.github.com/blasteroids",
+  "homepage": "https://howech.github.io/blasteroids",
   "devDependencies": {
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.9",
