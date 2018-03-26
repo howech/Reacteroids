@@ -21,7 +21,6 @@ const KEY = {
 const upgradeTypes = [
   'bulletCount',
   'bulletTime',
-  'bulletDelay',
   'rotationSpeed',
   'speed'
   ];
@@ -30,7 +29,6 @@ const beginUpgrades = {
   upgradeCost: 5,
   bulletCount: 1,
   bulletTime: 1,
-  bulletDelay: 1,
   rotationSpeed: 1,
   speed: 1,
 };
@@ -179,10 +177,6 @@ export class Blasteroids extends Component {
       if(upgrades.bulletTime >= 10) 
         return
       upgrades.bulletTime += 1
-    } else if(type === 'bulletDelay') {
-      if(upgrades.bulletDelay >= 10) 
-        return
-      upgrades.bulletDelay += 1;
     } else if(type === 'rotationSpeed') {
       if(upgrades.rotationSpeed >= 10) 
         return
@@ -211,10 +205,6 @@ export class Blasteroids extends Component {
   
   canFire() {
     return this.bullets.length < this.state.upgrades.bulletCount
-  }
-  
-  getBulletDelay() {
-    return 300 - 25 * this.state.upgrades.bulletDelay  
   }
   
   getRotationSpeed() {
@@ -252,7 +242,6 @@ export class Blasteroids extends Component {
       create: this.createObject.bind(this),
       onDie: this.gameOver.bind(this),
       getBulletCount: this.getBulletCount.bind(this),
-      getBulletDelay: this.getBulletDelay.bind(this),
       getBulletTime: this.getBulletTime.bind(this),
       getRotationSpeed: this.getRotationSpeed.bind(this),
       getSpeed: this.getSpeed.bind(this),
@@ -407,9 +396,8 @@ export class Blasteroids extends Component {
         <div className="shipStatus">
           <div><span>1) Shots:</span><span className="upgradeLevel">{this.state.upgrades.bulletCount}</span></div>
           <div><span>2) Range:</span><span className="upgradeLevel"> {this.state.upgrades.bulletTime}</span></div>
-          <div><span>3) Delay:</span><span className="upgradeLevel"> {this.state.upgrades.bulletDelay}</span></div>
-          <div><span>4) Turn:</span><span className="upgradeLevel"> {this.state.upgrades.rotationSpeed}</span></div>
-          <div><span>5) Accel:</span><span className="upgradeLevel"> {this.state.upgrades.speed}</span></div>
+          <div><span>3) Turn:</span><span className="upgradeLevel"> {this.state.upgrades.rotationSpeed}</span></div>
+          <div><span>4) Accel:</span><span className="upgradeLevel"> {this.state.upgrades.speed}</span></div>
           <div><span>Cost:</span><span className="upgradeLevel"> {this.state.upgrades.upgradeCost}</span></div>
         </div>
       </div>

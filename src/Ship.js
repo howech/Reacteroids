@@ -19,7 +19,6 @@ export default class Ship {
     this.getRotationSpeed = args.getRotationSpeed;
     this.getSpeed = args.getSpeed
     this.getBulletCount = args.getBulletCount
-    this.getBulletDelay = args.getBulletDelay
     this.getBulletTime = args.getBulletTime
     this.canFire = args.canFire
   }
@@ -96,7 +95,7 @@ export default class Ship {
       this.rotate('RIGHT');
     }
     
-    if(state.keys.space && Date.now() - this.lastShot > this.getBulletDelay() && this.canFire()){
+    if(state.keys.space && Date.now() - this.lastShot > 50 && this.canFire()){
       const bullet = new Bullet({ship: this, speed: 20, lifetime: this.getBulletTime() });
       this.create(bullet, 'bullets');
       this.lastShot = Date.now();
