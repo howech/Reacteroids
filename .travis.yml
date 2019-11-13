@@ -19,4 +19,4 @@ before_install:
   -in blasteroids.enc -out blasteroids -d
 repos:
   howech/blasteroids:
-    endpoint: https://api.travis-ci.org/
+    endpoint: https://api.travis-ci.com/
