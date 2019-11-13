@@ -11,9 +11,10 @@ deploy:
     tags: true
 before_deploy:
 - ssh-add blasteroids
-- git remote set-url origin git@github.com:howech/blasteroids.git
+- git remote set-url origin https://${GH_TOKEN}/github.com/howech/blasteroids.git
 - git config --global user.email "Travis<chris+travis@howeville.com>"
 - git config --global user.name "howech (via travis)"
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_892d8f69a8f7_key -iv $encrypted_892d8f69a8f7_iv
   -in blasteroids.enc -out blasteroids -d
