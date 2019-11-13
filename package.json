@@ -1,7 +1,7 @@
 {
-  "name": "react-transform-boilerplate",
-  "version": "1.0.0",
-  "description": "A new Webpack boilerplate with hot reloading React components, and error handling on module and component level.",
+  "name": "blasteroids",
+  "version": "0.1.0",
+  "description": "a poor video game",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
