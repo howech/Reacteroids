@@ -1,6 +1,6 @@
 {
   "name": "blasteroids",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "a poor video game",
   "scripts": {
     "clean": "rimraf dist",
