@@ -18,3 +18,7 @@ before_deploy:
 before_install:
 - openssl aes-256-cbc -K $encrypted_892d8f69a8f7_key -iv $encrypted_892d8f69a8f7_iv
   -in blasteroids.enc -out blasteroids -d
+
+repos:
+  howech/blasteroids:
+    endpoint: https://api.travis-ci.org/
